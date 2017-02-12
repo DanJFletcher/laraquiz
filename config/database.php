@@ -2,8 +2,10 @@
 
 // Check if testing
 if (env('APP_ENV') === "testing") {
+    $connection = env('DB_TEST_CONNECTION');
     $database = env('DB_TEST_DATABASE');
 } else {
+    $connection = env('DB_CONNECTION');
     $database = env('DB_DATABASE');
 }
 
@@ -20,7 +22,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => $connection,
 
     /*
     |--------------------------------------------------------------------------

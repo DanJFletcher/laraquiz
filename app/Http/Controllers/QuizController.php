@@ -41,8 +41,8 @@ class QuizController extends Controller
 
         // If $quiz is an instance of App\Quiz
         // return success
-        if ($quiz instanceof App\Quiz) {
-            return respons()->json([
+        if ($quiz instanceof Quiz) {
+            return response()->json([
                 'message' => 'success'
             ]);
         } 
@@ -63,7 +63,19 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        //
+        // $quiz is set we found a quiz
+        if (isset($quiz)) {
+            return response()->json([
+                "message" => "success",
+                "quiz" => $quiz
+            ]);
+        }
+        // else the quiz could not be found
+        else {
+            return response()->json([
+                "message" => "fail"
+            ]);
+        }
     }
 
     /**

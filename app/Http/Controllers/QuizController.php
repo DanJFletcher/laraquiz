@@ -35,7 +35,24 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Create a new quiz, mass assign the input from Request
+        // and save to the database
+        $quiz = Quiz::create($request->All());
+
+        // If $quiz is an instance of App\Quiz
+        // return success
+        if ($quiz instanceof App\Quiz) {
+            return respons()->json([
+                'message' => 'success'
+            ]);
+        } 
+        // Else if it's not an instance, then something
+        // went wrong
+        else {
+            return response()->json([
+                'message' => 'fail'
+            ]);
+        }
     }
 
     /**

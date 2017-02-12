@@ -42,7 +42,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ],
-        "test": "phpunit"
+        "test": "phpunit && php artisan migrate:refresh --seed"
     },
     "config": {
         "preferred-install": "dist",

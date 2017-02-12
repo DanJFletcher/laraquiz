@@ -10,7 +10,7 @@ use App\Quiz;
 
 class QuizTest extends TestCase
 {
-    // use DatabaseMigrations;
+    use DatabaseMigrations;
     use WithoutMiddleware;
 
     /**

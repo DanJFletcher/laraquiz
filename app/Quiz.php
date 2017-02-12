@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Quiz extends Model
 {
     /**
+     * The attributes that are mass assignable
+     *
+     * @var array
+     */
+    protected $fillable = ['user_id', 'title'];
+
+    /**
      * Get the user that owns the quiz 
      */
     public function user()

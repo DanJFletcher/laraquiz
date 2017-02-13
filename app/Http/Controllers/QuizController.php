@@ -16,7 +16,7 @@ class QuizController extends Controller
     public function index()
     {
         $quizzes = Quiz::all();
-        // dd($quizzes);
+
         return view('quiz.index')->with(compact('quizzes'));
     }
 
@@ -27,7 +27,8 @@ class QuizController extends Controller
      */
     public function create()
     {
-        //
+        // Return the create quiz form
+        return view('quiz.create');
     }
 
     /**

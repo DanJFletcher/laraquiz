@@ -12,6 +12,8 @@
             {{ Form::text('title', Input::old('title'), array('class' => 'form-control')) }}
         </div>
 
+        {{ Form::hidden('user_id', Auth::user()->id) }}
+
         {{ Form::submit('Create the Quiz!', array('class' => 'btn btn-primary')) }}
 
         {{ Form::close() }}

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Session;
+use Redirect;
 
 class QuizController extends Controller
 {
@@ -46,9 +48,9 @@ class QuizController extends Controller
         // If $quiz is an instance of App\Quiz
         // return success
         if ($quiz instanceof Quiz) {
-            return response()->json([
-                'message' => 'success'
-            ]);
+            // redirect
+            Session::flash('message', 'Successfully created quiz!');
+            return Redirect::to('quiz');
         } 
         // Else if it's not an instance, then something
         // went wrong

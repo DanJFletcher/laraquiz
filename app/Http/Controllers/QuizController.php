@@ -109,6 +109,14 @@ class QuizController extends Controller
      */
     public function destroy(Quiz $quiz)
     {
-        //
+        if($quiz->delete()) {
+            return response()->json([
+                'message' => 'success'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'fail'
+        ]);
     }
 }

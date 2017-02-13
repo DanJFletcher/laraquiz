@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class QuizController extends Controller
 {
@@ -14,7 +15,9 @@ class QuizController extends Controller
      */
     public function index()
     {
-        //
+        $quizzes = Quiz::all();
+        // dd($quizzes);
+        return view('quiz.index')->with(compact('quizzes'));
     }
 
     /**

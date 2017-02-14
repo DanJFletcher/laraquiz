@@ -31,7 +31,7 @@ class QuizTest extends TestCase
      *
      * @return void
      */
-    public function testStoreQuizRoute()
+    public function testStore()
     {
         // Send a quiz to be stored in database
         $response = $this->call('POST', 'quiz', array(
@@ -56,7 +56,7 @@ class QuizTest extends TestCase
      *
      * @return void
      */
-    public function testShowQuizRoute()
+    public function testShow()
     {
         $quiz = factory(Quiz::class)->create();
 

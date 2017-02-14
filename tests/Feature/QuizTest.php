@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Quiz;
+use App\User;
+use Session;
 
 class QuizTest extends TestCase
 {
@@ -40,7 +42,7 @@ class QuizTest extends TestCase
             '_token' => csrf_token()
         ));
 
-        print($response);
+        // print($response);
 
         // response should equal success
         // $this->assertTrue($response, 'success');
@@ -60,10 +62,15 @@ class QuizTest extends TestCase
     {
         $quiz = factory(Quiz::class)->create();
 
-        $response = $this->call('GET', '/quiz/', Array('id' => $quiz->id));
+        $this->assertDatabaseHas('quizzes', ['id' => $quiz->id]);
+
+        $response = $this->call('GET', 'quiz/'.$quiz->id, [
+            '_token' => csrf_token()
+        ]);
 
         $response
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertViewHas('quiz');
     }
 
     /**
@@ -72,14 +79,20 @@ class QuizTest extends TestCase
      * @return void
      */
     public function testDestroy()
-    {
-        $response = $this->call('Delete', 'quiz/1', [
+    {   
+        $quiz = factory(Quiz::class)->create();
+
+        // dd($quiz);
+
+        $this->assertDatabaseHas('quizzes', ['id' => $quiz->id]);
+
+        $response = $this->delete('quiz/' . $quiz->id, [
             '_token' => csrf_token()
         ]);
 
         $response
             ->assertStatus(302)
             ->assertRedirect('quiz')
-            ->assertSessionHas('message', 'Failed to delete quiz.');
+            ->assertSessionHas('message', 'Successfully deleted quiz!');
     }
 }

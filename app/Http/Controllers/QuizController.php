@@ -106,7 +106,12 @@ class QuizController extends Controller
      */
     public function update(Request $request, Quiz $quiz)
     {
-        //
+        // Update the title of this quiz
+        $quiz->title = $request->input('title');
+        
+        $quiz->save();
+        
+        return Redirect::to("quiz");
     }
 
     /**

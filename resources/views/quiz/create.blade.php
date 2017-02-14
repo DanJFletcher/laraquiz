@@ -3,7 +3,9 @@
 @section('content')
     <div class="container">
         <!-- if there are creation errors, they will show here -->
-        {{ HTML::ul($errors->all()) }}
+        @if (isset($errors))
+            {{ HTML::ul($errors->all()) }}
+        @endif
 
         {{ Form::open(['url' => 'quiz']) }}
 

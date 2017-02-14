@@ -118,13 +118,13 @@ class QuizController extends Controller
     public function destroy(Quiz $quiz)
     {
         if($quiz->delete()) {
-            return response()->json([
-                'message' => 'success'
-            ]);
+            // redirect success
+            Session::flash('message', 'Successfully deleted quiz!');
+            return Redirect::to('quiz');
         }
 
-        return response()->json([
-            'message' => 'fail'
-        ]);
+        // redirect fail
+        Session::flash('message', 'Failed to delete quiz.');
+        return Redirect::to('quiz');
     }
 }

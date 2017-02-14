@@ -68,10 +68,9 @@ class QuizController extends Controller
      * @param  \App\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function show($quiz)
+    public function show(Quiz $quiz)
     {
-        $quiz = Quiz::find($quiz);
-        // $quiz is set we found a quiz
+        // $quiz has id we found a quiz
         if (isset($quiz->id)) {
             return view('quiz.show')->with(compact('quiz'));
         }
@@ -110,9 +109,8 @@ class QuizController extends Controller
      * @param  \App\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function destroy($quiz)
+    public function destroy(Quiz $quiz)
     {
-        $quiz = Quiz::find($quiz);
         if($quiz->delete()) {
             // redirect success
             Session::flash('message', 'Successfully deleted quiz!');

@@ -65,4 +65,19 @@ class QuizTest extends TestCase
         $response
             ->assertStatus(200);
     }
+
+    /**
+     * Remove a quiz from storage
+     *
+     * @return void
+     */
+    public function testDestroy()
+    {
+        $response = $this->call('Delete', 'quiz/1', [
+            '_token' => csrf_token()
+        ]);
+
+        $response
+            ->assertStatus(200);
+    }
 }

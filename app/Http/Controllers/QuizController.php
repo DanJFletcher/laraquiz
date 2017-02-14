@@ -29,7 +29,6 @@ class QuizController extends Controller
      */
     public function create()
     {
-        // Return the create quiz form
         return view('quiz.create');
     }
 
@@ -88,7 +87,14 @@ class QuizController extends Controller
      */
     public function edit(Quiz $quiz)
     {
-        //
+        // $quiz has id we found a quiz
+        if (isset($quiz->id)) {
+            return view('quiz.edit')->with(compact('quiz'));
+        }
+        // else the quiz could not be found
+        else {
+            return response(404);
+        }
     }
 
     /**

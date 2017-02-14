@@ -78,6 +78,8 @@ class QuizTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(200);
+            ->assertStatus(302)
+            ->assertRedirect('quiz')
+            ->assertSessionHas('message', 'Failed to delete quiz.');
     }
 }

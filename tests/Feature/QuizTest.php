@@ -10,8 +10,21 @@ use App\Quiz;
 
 class QuizTest extends TestCase
 {
-    use DatabaseMigrations;
     use WithoutMiddleware;
+
+    /**
+     * Display a list of quizzes
+     *
+     * @return void
+     */
+    public function testIndex()
+    {
+        $response = $this->call('GET', 'quiz');
+        
+        $response
+            ->assertStatus(200)
+            ->assertViewHas('quizzes');
+    }
 
     /**
      * Store a quiz.

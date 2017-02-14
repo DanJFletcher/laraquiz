@@ -42,11 +42,6 @@ class QuizTest extends TestCase
             '_token' => csrf_token()
         ));
 
-        // print($response);
-
-        // response should equal success
-        // $this->assertTrue($response, 'success');
-
         // 'Test Quiz' should be in database
         $this->assertDatabaseHas('quizzes', [
             'title' => 'Test Quiz'
@@ -60,13 +55,21 @@ class QuizTest extends TestCase
      */
     public function testShow()
     {
+        // Create and store a new quiz
         $quiz = factory(Quiz::class)->create();
 
+        // Assert that the new quiz exists
         $this->assertDatabaseHas('quizzes', ['id' => $quiz->id]);
 
-        $response = $this->call('GET', 'quiz/'.$quiz->id, [
-            '_token' => csrf_token()
-        ]);
+        // Call the show route
+        $response = $this->call('GET', 'quiz/'.$quiz->id);
+
+        // getData() returns all vars attached to the response.
+        // grab the quiz
+        $quiz = $response->original->getData()['quiz'];
+        
+        // Assert that the response has a Model instance
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Model', $quiz);
 
         $response
             ->assertStatus(200)
@@ -86,9 +89,7 @@ class QuizTest extends TestCase
 
         $this->assertDatabaseHas('quizzes', ['id' => $quiz->id]);
 
-        $response = $this->delete('quiz/' . $quiz->id, [
-            '_token' => csrf_token()
-        ]);
+        $response = $this->delete('quiz/' . $quiz->id);
 
         $response
             ->assertStatus(302)

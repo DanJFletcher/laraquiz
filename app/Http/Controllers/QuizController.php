@@ -49,7 +49,7 @@ class QuizController extends Controller
 
         // If $quiz is an instance of App\Quiz
         // return success
-        if ($quiz instanceof Quiz) {
+        if (isset($quiz->id)) {
             // redirect
             Session::flash('message', 'Successfully created quiz!');
             return Redirect::to('quiz');
@@ -57,9 +57,8 @@ class QuizController extends Controller
         // Else if it's not an instance, then something
         // went wrong
         else {
-            return response()->json([
-                'message' => 'fail'
-            ]);
+            Session::flash('message', 'Failed to create quiz.');
+            return Redirect::to('quiz');
         }
     }
 
@@ -69,18 +68,16 @@ class QuizController extends Controller
      * @param  \App\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function show(Quiz $quiz)
+    public function show($quiz)
     {
-        // dd($quiz);
+        $quiz = Quiz::find($quiz);
         // $quiz is set we found a quiz
-        if ($quiz instanceof Quiz) {
+        if (isset($quiz->id)) {
             return view('quiz.show')->with(compact('quiz'));
         }
         // else the quiz could not be found
         else {
-            return response()->json([
-                "message" => "fail"
-            ]);
+            return response(404);
         }
     }
 
@@ -113,8 +110,9 @@ class QuizController extends Controller
      * @param  \App\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Quiz $quiz)
+    public function destroy($quiz)
     {
+        $quiz = Quiz::find($quiz);
         if($quiz->delete()) {
             // redirect success
             Session::flash('message', 'Successfully deleted quiz!');

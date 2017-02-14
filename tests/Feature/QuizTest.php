@@ -121,6 +121,31 @@ class QuizTest extends TestCase
     }
 
     /**
+     * Update the quiz in storage
+     *
+     * @return void
+     */
+    public function testUpdate()
+    {
+        // Create user and quiz
+        $user = factory(User::class)->create();
+        $quiz = factory(Quiz::class)->create();
+
+        // Send a quiz to be stored in database
+        $response = $this->actingAs($user)->call('PUT', 'quiz/'.$quiz->id,
+            array(
+                'title' => 'Update Quiz',
+                '_token' => csrf_token()
+            ));
+
+        $response
+            ->assertStatus(302)
+            ->assertRedirect('quiz');
+            
+        $this->assertDatabaseHas('quizzes', ['title' => 'Update Quiz']);
+    }
+
+    /**
      * Remove a quiz from storage
      *
      * @return void

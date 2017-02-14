@@ -71,12 +71,10 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
+        // dd($quiz);
         // $quiz is set we found a quiz
-        if (isset($quiz)) {
-            return response()->json([
-                "message" => "success",
-                "quiz" => $quiz
-            ]);
+        if ($quiz instanceof Quiz) {
+            return view('quiz.show')->with(compact('quiz'));
         }
         // else the quiz could not be found
         else {

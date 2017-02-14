@@ -8,11 +8,10 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Quiz;
 use App\User;
-use Session;
+
 
 class QuizTest extends TestCase
 {
-    use WithoutMiddleware;
 
     /**
      * Display a list of quizzes
@@ -21,7 +20,10 @@ class QuizTest extends TestCase
      */
     public function testIndex()
     {
-        $response = $this->call('GET', 'quiz');
+        // Create user
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->call('GET', 'quiz');
         
         $response
             ->assertStatus(200)
@@ -35,8 +37,11 @@ class QuizTest extends TestCase
      */
     public function testStore()
     {
+        // Create user
+        $user = factory(User::class)->create();
+
         // Send a quiz to be stored in database
-        $response = $this->call('POST', 'quiz', array(
+        $response = $this->actingAs($user)->call('POST', 'quiz', array(
             'user_id' => 1,
             'title' => 'Test Quiz',
             '_token' => csrf_token()
@@ -49,6 +54,23 @@ class QuizTest extends TestCase
     }
 
     /**
+     * Show form for creating new quiz
+     * 
+     * @return void
+     */
+    public function testCreate() 
+    {
+        // Create user
+        $user = factory(User::class)->create();
+
+        // send req to create view as authed user
+        $response = $this->actingAs($user)->get('quiz/create');
+
+        $response
+            ->assertStatus(200);
+    }
+
+    /**
      * Show a quiz.
      *
      * @return void
@@ -58,11 +80,14 @@ class QuizTest extends TestCase
         // Create and store a new quiz
         $quiz = factory(Quiz::class)->create();
 
+        // Create user
+        $user = factory(User::class)->create();
+
         // Assert that the new quiz exists
         $this->assertDatabaseHas('quizzes', ['id' => $quiz->id]);
 
         // Call the show route
-        $response = $this->call('GET', 'quiz/'.$quiz->id);
+        $response = $this->actingAs($user)->call('GET', 'quiz/'.$quiz->id);
 
         // getData() returns all vars attached to the response.
         // grab the quiz
@@ -82,14 +107,16 @@ class QuizTest extends TestCase
      * @return void
      */
     public function testDestroy()
-    {   
+    {
+         // Create user and quiz
+        $user = factory(User::class)->create();
         $quiz = factory(Quiz::class)->create();
 
         // dd($quiz);
 
         $this->assertDatabaseHas('quizzes', ['id' => $quiz->id]);
 
-        $response = $this->delete('quiz/' . $quiz->id);
+        $response = $this->actingAs($user)->delete('quiz/' . $quiz->id);
 
         $response
             ->assertStatus(302)

@@ -41,6 +41,8 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
+        // TODO: Need validation here - i.e. check for duplicate titles
+
         // Create a new quiz, mass assign the input from Request
         // and save to the database
         $quiz = Quiz::create($request->All());

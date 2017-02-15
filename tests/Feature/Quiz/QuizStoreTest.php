@@ -13,7 +13,7 @@ use App\User;
 class QuizStoreTest extends TestCase
 {
     /**
-     * Store a quiz.
+     * Test store a quiz.
      *
      * @return void
      */
@@ -24,7 +24,7 @@ class QuizStoreTest extends TestCase
 
         // Send a quiz to be stored in database
         $response = $this->actingAs($user)->call('POST', 'quiz', array(
-            'user_id' => 1,
+            'user_id' => $user->id,
             'title' => 'Test Quiz',
             '_token' => csrf_token()
         ));
@@ -33,5 +33,35 @@ class QuizStoreTest extends TestCase
         $this->assertDatabaseHas('quizzes', [
             'title' => 'Test Quiz'
         ]);
+    }
+
+    /**
+     * Test store a quiz if not authed
+     *
+     * Auth Middleware should redirect to /login
+     *
+     * @return void
+     */
+    public function testStoreIfUserNotAuthed()
+    {
+        // Make sure a user exists
+        $user = factory(User::class)->create();
+
+        // Send a quiz to be stored in database
+        $response = $this->call('POST', 'quiz', array(
+            'user_id' => $user->id,
+            'title' => 'Not Authed Quiz',
+            '_token' => csrf_token()
+        ));
+
+        // Try to query for the attempted quiz
+        $quiz = Quiz::where('title', 'Not Authed Quiz')->first();
+
+        // Quiz should not be in database
+        $this->assertTrue($quiz === null);
+
+        $response
+            ->assertStatus(302)
+            ->assertRedirect('login');
     }
 }

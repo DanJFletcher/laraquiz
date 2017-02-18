@@ -40,7 +40,11 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: Need validation here - i.e. check for duplicate titles
+        // If validation fails this will automatically redirect user 
+        // back to quiz.create and flash errors.
+        $this->validate($request, [
+            'title' => 'bail|required|unique:quizzes'
+        ]);
 
         // Create a new quiz, mass assign the input from Request
         // and save to the database

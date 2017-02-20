@@ -26,31 +26,36 @@
                 <td>{{ $quiz->user->name }}</td>
                 <td>
 
-                <!-- delete the quiz (uses the destroy method DESTROY /quiz/{id} -->
-                {{ Form::open(['route' => ['quiz.destroy', $quiz->id], 'method' => 'delete']) }}
-                    <button 
-                        class="btn btn-small btn-square btn-danger pull-right" 
+
+                <div class="btn-group" role="group" aria-label="...">
+                    <!-- show the quiz (uses the show method found at GET /quizs/{id} -->
+                    <a 
+                        class="btn btn-small btn-square btn-info pull" 
+                        href="{{ URL::to('quiz/' . $quiz->id) }}"
+                        title="Show this quiz">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+
+                    <!-- edit this quiz (uses the edit method found at GET /quizs/{id}/edit -->
+                    <a 
+                        class="btn btn-small btn-square btn-primary" 
+                        href="{{ URL::to('quiz/' . $quiz->id . '/edit') }}"
+                        title="Edit this quiz">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+
+                    <!-- delete the quiz (uses the destroy method DESTROY /quiz/{id} -->
+                    <!--{{ Form::open(['route' => ['quiz.destroy', $quiz->id], 'method' => 'delete']) }}-->
+                    <a
+                        href='{{ url("quiz/{$quiz->id}") }}'
+                        class="btn btn-small btn-square btn-danger" 
                         type="submit"
-                        title="Delete this quiz">
+                        title="Delete this quiz"
+                        data-method="delete">
                         <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                {{ Form::close() }}
-
-                <!-- show the quiz (uses the show method found at GET /quizs/{id} -->
-                <a 
-                    class="btn btn-small btn-square btn-info pull-right" 
-                    href="{{ URL::to('quiz/' . $quiz->id) }}"
-                    title="Show this quiz">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                </a>
-
-                <!-- edit this quiz (uses the edit method found at GET /quizs/{id}/edit -->
-                <a 
-                    class="btn btn-small btn-square btn-primary pull-right" 
-                    href="{{ URL::to('quiz/' . $quiz->id . '/edit') }}"
-                    title="Edit this quiz">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
+                    </a>
+                <!--{{ Form::close() }}-->
+                </div>
 
             </td>
             </tr>

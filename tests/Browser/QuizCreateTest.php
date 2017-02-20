@@ -21,7 +21,9 @@ class QuizCreateTest extends DuskTestCase
 
         $this->browse(function ($browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/quiz/create')
+                    ->visit('quiz')
+                    ->pause(1000)
+                    ->clickLink('Create Quiz')
                     ->type('title', 'Test Quiz')
                     ->press('Create the Quiz!')
                     ->assertPathIs('/quiz')

@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 @section('content')
-    <div class="content text-center">
+    <div class="container text-center">
         <h1>Laraquiz</h1>
         <p>Easily create quizzes for self studying.</p>
         @if (Auth::User())

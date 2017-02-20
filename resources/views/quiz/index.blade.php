@@ -27,22 +27,38 @@
                 <td>
 
                 <!-- delete the quiz (uses the destroy method DESTROY /quiz/{id} -->
-                {{ Form::open(array('url' => 'quiz/' . $quiz->id, 'class' => 'pull-right')) }}
-                    {{ Form::hidden('_method', 'DELETE') }}
-                    {{ Form::submit('Delete this Quiz', array('class' => 'btn btn-warning')) }}
+                {{ Form::open(['route' => ['quiz.destroy', $quiz->id], 'method' => 'delete']) }}
+                    <button 
+                        class="btn btn-small btn-square btn-danger pull-right" 
+                        type="submit"
+                        title="Delete this quiz">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
                 {{ Form::close() }}
 
                 <!-- show the quiz (uses the show method found at GET /quizs/{id} -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('quiz/' . $quiz->id) }}">Show this quiz</a>
+                <a 
+                    class="btn btn-small btn-square btn-info pull-right" 
+                    href="{{ URL::to('quiz/' . $quiz->id) }}"
+                    title="Show this quiz">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
 
                 <!-- edit this quiz (uses the edit method found at GET /quizs/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('quiz/' . $quiz->id . '/edit') }}">Edit this quiz</a>
+                <a 
+                    class="btn btn-small btn-square btn-primary pull-right" 
+                    href="{{ URL::to('quiz/' . $quiz->id . '/edit') }}"
+                    title="Edit this quiz">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
 
             </td>
             </tr>
         @endforeach
         </tbody>
         </table>
+
+        <a href="{{ URL::to('quiz/create') }}" class="btn btn-small btn-primary pull-right" title="Create new quiz"><i class="fa fa-plus" aria-hidden="true"></i> Create Quiz</a>
 
     </div>
 @endsection

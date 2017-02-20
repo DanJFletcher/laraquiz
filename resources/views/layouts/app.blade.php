@@ -39,14 +39,16 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'Laraquiz') }}
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        @if (Auth::user())
+                            <li><a href="{{ route('quiz.index') }}" title="My Quizzes">My Quizzes</a>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::middleware('auth')->resource('quiz', 'QuizController');
+
+Route::middleware('auth')->resource('question', 'QuestionController');

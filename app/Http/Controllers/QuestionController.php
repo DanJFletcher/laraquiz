@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Auth;
+use Quiz;
 
 class QuestionController extends Controller
 {
@@ -14,7 +17,19 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $questions = DB::table('questions')
+                        ->join('quizzes', 'questions.id', '=', 'quizzes.id')
+                        ->join('users', 'quizzes.id', '=', 'users.id')
+                        ->select('questions.id', 'questions.text')
+                        ->where('questions.id', $user->id)
+                        ->get();
+
+        // $questions = Auth::User()->quizzes()->get()->each->questions;
+
+        // dd($questions);
+
+        return view('question.index')->with(compact('questions'));
     }
 
     /**
@@ -24,7 +39,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('question.create');
     }
 
     /**
@@ -35,7 +50,11 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $question = Question::create($request->all());
+
+        $id = $question->quiz->id;
+
+        return redirect()->route("quiz.show", ['id' => $id]);
     }
 
     /**

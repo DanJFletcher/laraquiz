@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+
+    /**
+     * Fillables
+     *
+     * @var Array
+     */
+    protected $fillable = ['answer', 'text', 'quiz_id'];
+
     /**
      * Get the quiz that owns the question
      */

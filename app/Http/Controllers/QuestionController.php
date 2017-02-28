@@ -11,12 +11,16 @@ use Quiz;
 class QuestionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display all questions belonging to current quiz
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        // [TODO]
+        // Currently this dipsplays all questions belonging to current user
+        // But after testing, It apears it does not. 
+        // Will have to fix the query to produce the results I actually need.
         $user = Auth::user();
         $questions = DB::table('questions')
                         ->join('quizzes', 'questions.id', '=', 'quizzes.id')
@@ -35,11 +39,14 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('question.create');
+        $id = $request->query('id');
+
+        return view('question.create')->with(['id' => $id]);
     }
 
     /**

@@ -11,32 +11,6 @@ use Quiz;
 class QuestionController extends Controller
 {
     /**
-     * Display all questions belonging to current quiz
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        // [TODO]
-        // Currently this dipsplays all questions belonging to current user
-        // But after testing, It apears it does not. 
-        // Will have to fix the query to produce the results I actually need.
-        $user = Auth::user();
-        $questions = DB::table('questions')
-                        ->join('quizzes', 'questions.id', '=', 'quizzes.id')
-                        ->join('users', 'quizzes.id', '=', 'users.id')
-                        ->select('questions.id', 'questions.text')
-                        ->where('questions.id', $user->id)
-                        ->get();
-
-        // $questions = Auth::User()->quizzes()->get()->each->questions;
-
-        // dd($questions);
-
-        return view('question.index')->with(compact('questions'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param \Illuminate\Http\Request  $request

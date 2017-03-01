@@ -12,7 +12,7 @@
                 {{ Form::text('answer', Input::old('answer'), array('class' => 'form-control')) }}
             </div>
 
-            {{ Form::hidden('quiz_id', '1') }}
+            {{ Form::hidden('quiz_id', $id) }}
 
             {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
         {{ Form::close() }}

@@ -6,3 +6,24 @@ Laraquiz is a personal project I'm takling with the intent of becoming better at
 The primary goal is to improve my understanding and ability to apply testing and the SOLID principles.
 
 Ironically enough, the app I decided to build for this project is a quiz maker for _testing_ yourself.
+
+## Setup
+
+### Laragon users
+```
+git clone https://github.com/DanJFletcher/laraquiz.git
+cd laraquiz
+composer install
+cp .env.example .env
+```
+- Create a MySQL database
+- Add DB credentials to `.env`
+```
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+npm install
+gulp
+```
+- Refresh Laragon
+- Visit laraquiz.dev

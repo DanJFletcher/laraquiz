@@ -26,4 +26,4 @@ npm install
 gulp
 ```
 - Refresh Laragon
-- Visit laraquiz.dev
+- Visit `laraquiz.dev`

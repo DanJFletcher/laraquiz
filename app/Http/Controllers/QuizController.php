@@ -40,7 +40,7 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        // If validation fails this will automatically redirect user 
+        // If validation fails this will automatically redirect user
         // back to quiz.create and flash errors.
         $this->validate($request, [
             'title' => 'bail|required|unique:quizzes'
@@ -56,7 +56,7 @@ class QuizController extends Controller
             // redirect
             Session::flash('message', 'Successfully created quiz!');
             return Redirect::to('quiz');
-        } 
+        }
         // Else if it's not an instance, then something
         // went wrong
         else {
@@ -110,11 +110,17 @@ class QuizController extends Controller
      */
     public function update(Request $request, Quiz $quiz)
     {
+        // If validation fails this will automatically redirect user
+        // back to quiz.create and flash errors.
+        $this->validate($request, [
+            'title' => 'bail|required|unique:quizzes'
+        ]);
+
         // Update the title of this quiz
         $quiz->title = $request->input('title');
-        
+
         $quiz->save();
-        
+
         return Redirect::to("quiz");
     }
 

@@ -1,14 +1,5 @@
 <?php
 
-// Check if testing
-if (env('APP_ENV') === "testing") {
-    $connection = env('DB_TEST_CONNECTION');
-    $database = env('DB_TEST_DATABASE');
-} else {
-    $connection = env('DB_CONNECTION');
-    $database = env('DB_DATABASE');
-}
-
 return [
 
     /*
@@ -22,7 +13,7 @@ return [
     |
     */
 
-    'default' => $connection,
+    'default' => env('DB_CONNECTION'),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +35,7 @@ return [
 
         'sqlite' => [
             'driver' => 'sqlite',
-            'database' => database_path($database),
+            'database' => env('DB_DATABASE'),
             'prefix' => '',
         ],
 
@@ -52,7 +43,7 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $database,
+            'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8mb4',

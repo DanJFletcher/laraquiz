@@ -12,14 +12,9 @@ use App\User;
 
 class QuizCreateTest extends TestCase
 {
-    /**
-     * Test create if authed
-     *
-     * Show form for creating new quiz if user authed
-     * 
-     * @return void
-     */
-    public function testCreateUserIsAuthed() 
+    use DatabaseMigrations;
+    /** @test */
+    public function authed_user_can_create_a_quiz()
     {
         // Create user
         $user = factory(User::class)->create();
@@ -31,14 +26,8 @@ class QuizCreateTest extends TestCase
             ->assertStatus(200);
     }
 
-        /**
-        * Test create if not authed
-        *
-        * Return 302 and redirect to /login if user is not authed
-        * 
-        * @return void
-        */
-        public function testCreateUserNotAuthed() 
+        /** @test */
+        public function unauthed_user_can_not_create_quiz()
         {
             // send req to create view as authed user
             $response = $this->get('quiz/create');

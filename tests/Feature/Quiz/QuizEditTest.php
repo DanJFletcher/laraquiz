@@ -12,6 +12,8 @@ use App\User;
 
 class QuizEditTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * Show the form for editing a quiz
      *

@@ -12,6 +12,8 @@ use App\User;
 
 class QuizStoreTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * Test store a quiz.
      *

@@ -11,6 +11,8 @@ use App\User;
 
 class QuestionCreateTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * Test creating a quesiont
      *
@@ -30,7 +32,7 @@ class QuestionCreateTest extends TestCase
 
         $response
             ->assertStatus(200)
-            
+
             // The view should have an id
             ->assertViewHas('id');
 

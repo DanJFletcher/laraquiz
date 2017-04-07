@@ -12,6 +12,8 @@ use App\User;
 
 class QuizShowTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * Show a quiz if quizzes exist
      *
@@ -34,7 +36,7 @@ class QuizShowTest extends TestCase
         // getData() returns all vars attached to the response.
         // grab the quiz
         $quiz = $response->original->getData()['quiz'];
-        
+
         // Assert that the response has a Model instance
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Model', $quiz);
 

@@ -12,12 +12,10 @@ use App\User;
 
 class QuizDestroyTest extends TestCase
 {
-    /**
-     * Remove a quiz from storage
-     *
-     * @return void
-     */
-    public function testDestroy()
+    use DatabaseMigrations;
+
+    /** @test */
+    public function user_can_delete_a_quiz()
     {
          // Create user and quiz
         $user = factory(User::class)->create();

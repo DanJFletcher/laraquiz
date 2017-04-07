@@ -11,6 +11,8 @@ use App\User;
 
 class QuizIndexTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * Test index if authed
      *
@@ -24,7 +26,7 @@ class QuizIndexTest extends TestCase
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->call('GET', 'quiz');
-        
+
         $response
             ->assertStatus(200)
             ->assertViewHas('quizzes');
@@ -32,7 +34,7 @@ class QuizIndexTest extends TestCase
 
     /**
      * Test index if not authed
-     * 
+     *
      * Redirect to login if user is not authenticated
      *
      * @return void
@@ -50,7 +52,7 @@ class QuizIndexTest extends TestCase
 
     /**
      * Test index no quizzes
-     * 
+     *
      * Not sure
      *
      * @return void

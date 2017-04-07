@@ -12,12 +12,10 @@ use App\User;
 
 class QuizUpdateTest extends TestCase
 {
-    /**
-     * Update the quiz in storage
-     *
-     * @return void
-     */
-    public function testUpdate()
+    use DatabaseMigrations;
+
+    /** @test */
+    public function user_can_update_a_quiz_title()
     {
         // Create user and quiz
         $user = factory(User::class)->create();

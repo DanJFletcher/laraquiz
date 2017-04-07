@@ -13,8 +13,9 @@ use App\User;
 class QuizCreateTest extends TestCase
 {
     use DatabaseMigrations;
+
     /** @test */
-    public function authed_user_can_create_a_quiz()
+    public function ser_can_create_a_quiz()
     {
         // Create user
         $user = factory(User::class)->create();
@@ -26,14 +27,14 @@ class QuizCreateTest extends TestCase
             ->assertStatus(200);
     }
 
-        /** @test */
-        public function unauthed_user_can_not_create_quiz()
-        {
-            // send req to create view as authed user
-            $response = $this->get('quiz/create');
+    /** @test */
+    public function guest_can_not_create_quiz()
+    {
+        // send req to create view as authed user
+        $response = $this->get('quiz/create');
 
-            $response
-                ->assertStatus(302)
-                ->assertRedirect('login');
-        }
+        $response
+            ->assertStatus(302)
+            ->assertRedirect('login');
+    }
 }

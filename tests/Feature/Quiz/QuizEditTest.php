@@ -14,12 +14,8 @@ class QuizEditTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /**
-     * Show the form for editing a quiz
-     *
-     * @return void
-     */
-    public function testEdit()
+    /** @test */
+    public function user_can_view_quiz_edit_page()
     {
          // Create user and quiz
         $user = factory(User::class)->create();

@@ -13,14 +13,8 @@ class QuizIndexTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /**
-     * Test index if authed
-     *
-     * Display a list of quizzes if user is authenticated
-     *
-     * @return void
-     */
-    public function testIndexIfAuthed()
+    /** @test */
+    public function user_can_view_their_quizzes()
     {
         // Create user
         $user = factory(User::class)->create();
@@ -32,14 +26,8 @@ class QuizIndexTest extends TestCase
             ->assertViewHas('quizzes');
     }
 
-    /**
-     * Test index if not authed
-     *
-     * Redirect to login if user is not authenticated
-     *
-     * @return void
-     */
-    public function testIndexIfNotAuthed()
+    /** @test */
+    public function guest_can_not_view_quizzes()
     {
         $response = $this->get('quiz');
 
@@ -50,14 +38,8 @@ class QuizIndexTest extends TestCase
             ->assertRedirect('login');
     }
 
-    /**
-     * Test index no quizzes
-     *
-     * Not sure
-     *
-     * @return void
-     */
-    public function testIndexIfNoQuizzes()
+    /** @test */
+    public function user_can_view_quizzes_page_when_there_are_no_quizzes()
     {
         // Create authed user
         $user = factory(User::class)->create();

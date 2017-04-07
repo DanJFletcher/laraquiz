@@ -14,12 +14,8 @@ class QuizShowTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /**
-     * Show a quiz if quizzes exist
-     *
-     * @return void
-     */
-    public function testShowIfQuizzesExist()
+    /** @test */
+    public function user_can_view_a_quiz_if_it_exists()
     {
         // Create and store a new quiz
         $quiz = factory(Quiz::class)->create();
@@ -45,14 +41,8 @@ class QuizShowTest extends TestCase
             ->assertViewHas('quiz');
     }
 
-    /**
-     * Show quiz if quizzes don't exist
-     *
-     * Should return 404 not found if there are no quizzes in database
-     *
-     * @return void
-     */
-    public function testShowQuizIfQuizzesDontExist()
+    /** @test */
+    public function send_404_if_quiz_does_not_exist()
     {
         // Create authed user
         $user = factory(User::class)->create();

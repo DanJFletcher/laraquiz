@@ -13,12 +13,8 @@ class QuestionStoreTest extends TestCase
 {
         use DatabaseMigrations;
 
-    /**
-     * Test storing a question
-     *
-     * @return void
-     */
-    public function testStore()
+    /** @test */
+    public function user_can_create_a_question()
     {
         // create authed user
         $user = factory(User::class)->create();

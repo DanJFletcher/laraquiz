@@ -14,12 +14,8 @@ class QuizStoreTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /**
-     * Test store a quiz.
-     *
-     * @return void
-     */
-    public function testStore()
+    /** @test */
+    public function user_can_create_a_quiz()
     {
         // Create user
         $user = factory(User::class)->create();
@@ -37,14 +33,8 @@ class QuizStoreTest extends TestCase
         ]);
     }
 
-    /**
-     * Test store a quiz if not authed
-     *
-     * Auth Middleware should redirect to /login
-     *
-     * @return void
-     */
-    public function testStoreIfUserNotAuthed()
+    /** @test */
+    public function guest_can_not_create_a_quiz()
     {
         // Make sure a user exists
         $user = factory(User::class)->create();

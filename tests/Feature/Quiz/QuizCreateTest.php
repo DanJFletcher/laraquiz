@@ -15,7 +15,7 @@ class QuizCreateTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function ser_can_create_a_quiz()
+    public function user_can_create_a_quiz()
     {
         // Create user
         $user = factory(User::class)->create();

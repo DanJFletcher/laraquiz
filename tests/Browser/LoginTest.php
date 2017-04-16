@@ -49,7 +49,7 @@ class LoginTest extends DuskTestCase
                     ->assertPathIs('/login')
                     ->assertSee(
                         'These credentials do not match our records.'
-                        );
+                    );
         });
     }
 

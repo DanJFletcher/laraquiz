@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Quiz extends Model
@@ -27,5 +28,10 @@ class Quiz extends Model
     public function questions()
     {
         return $this->hasMany('App\Question');
+    }
+
+    public function getFormattedCreatedAtAttribute()
+    {
+        return $this->created_at->toFormattedDateString('F j, Y');
     }
 }
